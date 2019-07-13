@@ -1,37 +1,57 @@
 package com.bitpay.cordova.qrscanner;
 
-import android.Manifest;
+import com.journeyapps.barcodescanner.BarcodeCallback;
+import com.journeyapps.barcodescanner.BarcodeResult;
+import com.journeyapps.barcodescanner.BarcodeView;
+import com.journeyapps.barcodescanner.DefaultDecoderFactory;
+import com.journeyapps.barcodescanner.camera.CameraParametersCallback;
+import com.journeyapps.barcodescanner.camera.CameraSettings;
+
+
+import org.apache.cordova.CallbackContext;
+import org.apache.cordova.CordovaPlugin;
+import org.apache.cordova.PluginResult;
+import org.apache.cordova.PermissionHelper;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.hardware.Camera;
+import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
+import android.view.ViewGroup;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.TypedArray;
+import android.util.AttributeSet;
+import android.view.KeyEvent;
+import android.widget.FrameLayout;
+import android.widget.TextView;
+import android.Manifest;
 import android.content.pm.FeatureInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.hardware.camera2.CameraAccessException;
 import android.net.Uri;
 
+
 import com.google.zxing.BarcodeFormat;
+import com.google.zxing.DecodeHintType;
+import com.google.zxing.MultiFormatReader;
 import com.google.zxing.ResultPoint;
-import com.journeyapps.barcodescanner.BarcodeCallback;
-import com.journeyapps.barcodescanner.BarcodeResult;
-import com.journeyapps.barcodescanner.BarcodeView;
-import com.journeyapps.barcodescanner.DefaultDecoderFactory;
-import com.journeyapps.barcodescanner.camera.CameraSettings;
-import org.apache.cordova.CallbackContext;
-import org.apache.cordova.CordovaPlugin;
-import org.apache.cordova.PluginResult;
-import org.apache.cordova.PermissionHelper;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import android.hardware.Camera;
-import android.provider.Settings;
-import android.support.v4.app.ActivityCompat;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
+import com.google.zxing.client.android.DecodeFormatManager;
+import com.google.zxing.client.android.DecodeHintManager;
+import com.google.zxing.client.android.Intents;
+import com.google.zxing.client.android.R;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 
 @SuppressWarnings("deprecation")
@@ -60,7 +80,7 @@ public class QRScanner extends CordovaPlugin implements BarcodeCallback {
     private boolean oneTime = true;
     private boolean keepDenied = false;
     private boolean appPausedWithActivePreview = false;
-    
+
     static class QRScannerError {
         private static final int UNEXPECTED_ERROR = 0,
                 CAMERA_ACCESS_DENIED = 1,
@@ -454,12 +474,16 @@ public class QRScanner extends CordovaPlugin implements BarcodeCallback {
                 mBarcodeView = new BarcodeView(cordova.getActivity());
 
                 //Configure the decoder
-                ArrayList<BarcodeFormat> formatList = new ArrayList<BarcodeFormat>();
-                formatList.add(BarcodeFormat.QR_CODE);
-                mBarcodeView.setDecoderFactory(new DefaultDecoderFactory(formatList, null, null));
+                Set<BarcodeFormat> decodeFormats = new HashSet<BarcodeFormat>();
+                decodeFormats.add(BarcodeFormat.QR_CODE);
+
+
+                mBarcodeView.setDecoderFactory(new DefaultDecoderFactory(decodeFormats, null, "utf-8", 0));
 
                 //Configure the camera (front/back)
                 CameraSettings settings = new CameraSettings();
+                settings.setAutoFocusEnabled(false);
+                settings.setContinuousFocusEnabled(true);
                 settings.setRequestedCameraId(getCurrentCameraId());
                 mBarcodeView.setCameraSettings(settings);
 
@@ -641,7 +665,7 @@ public class QRScanner extends CordovaPlugin implements BarcodeCallback {
                     if(lightOn)
                         lightOn = false;
                 }
-                
+
                 if (callbackContext != null)
                     getStatus(callbackContext);
             }
@@ -659,7 +683,7 @@ public class QRScanner extends CordovaPlugin implements BarcodeCallback {
                     if(switchFlashOn)
                         lightOn = true;
                 }
-                
+
                 if (callbackContext != null)
                     getStatus(callbackContext);
             }

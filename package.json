@@ -1,11 +1,12 @@
 {
-  "name": "cordova-plugin-qrscanner",
-  "version": "3.0.1",
+  "name": "cordova-plugin-qrscanner-fixed-focus",
+  "version": "3.0.2",
   "description": "Fast, energy-efficient, highly-configurable QR code scanner.",
   "cordova": {
-    "id": "cordova-plugin-qrscanner",
+    "id": "cordova-plugin-qrscanner-fixed-focus",
     "platforms": [
-      "ios"
+      "ios",
+      "android"
     ]
   },
   "scripts": {
@@ -29,7 +30,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/bitpay/cordova-plugin-qrscanner"
+    "url": "https://github.com/bloodf/cordova-plugin-qrscanner-fixed-focus.git"
   },
   "keywords": [
     "cordova",
@@ -46,12 +47,12 @@
     "electron",
     "NW.js"
   ],
-  "author": "Jason Dreyzehner",
+  "author": "Heitor Ramon",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/bitpay/cordova-plugin-qrscanner/issues"
+    "url": "https://github.com/bloodf/cordova-plugin-qrscanner-fixed-focus/issues"
   },
-  "homepage": "https://github.com/bitpay/cordova-plugin-qrscanner",
+  "homepage": "https://github.com/bloodf/cordova-plugin-qrscanner-fixed-focus",
   "main": "dist/cordova-plugin-qrscanner-lib.min.js",
   "dependencies": {
     "qrcode-reader": "^1.0.4",
