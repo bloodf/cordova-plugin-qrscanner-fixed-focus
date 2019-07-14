@@ -34,7 +34,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.hardware.camera2.CameraAccessException;
 import android.net.Uri;
-
+import android.graphics.Rect;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.DecodeHintType;
@@ -53,7 +53,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-
 @SuppressWarnings("deprecation")
 public class QRScanner extends CordovaPlugin implements BarcodeCallback {
 
@@ -67,7 +66,7 @@ public class QRScanner extends CordovaPlugin implements BarcodeCallback {
     private String[] permissions = {Manifest.permission.CAMERA};
     //Preview started or paused
     private boolean previewing = false;
-    private BarcodeView  mBarcodeView;
+    private CustomBarcodeView  mBarcodeView;
     private boolean switchFlashOn = false;
     private boolean switchFlashOff = false;
     private boolean cameraPreviewing;
@@ -471,19 +470,21 @@ public class QRScanner extends CordovaPlugin implements BarcodeCallback {
             @Override
             public void run() {
                 // Create our Preview view and set it as the content of our activity.
-                mBarcodeView = new BarcodeView(cordova.getActivity());
+                val p = Point()
+                windowManager.defaultDisplay.getSize(p)
+                mBarcodeView = new CustomBarcodeView(cordova.getActivity());
 
                 //Configure the decoder
                 Set<BarcodeFormat> decodeFormats = new HashSet<BarcodeFormat>();
                 decodeFormats.add(BarcodeFormat.QR_CODE);
-
-
+                mBarcodeView.framingRectSize = Size(p.x, p.y)
                 mBarcodeView.setDecoderFactory(new DefaultDecoderFactory(decodeFormats, null, "utf-8", 0));
 
                 //Configure the camera (front/back)
                 CameraSettings settings = new CameraSettings();
                 settings.setAutoFocusEnabled(false);
-                settings.setContinuousFocusEnabled(true);
+                // settings.setContinuousFocusEnabled(true);
+                // settings.setFocusMode(CameraSettings.FocusMode.MACRO);
                 settings.setRequestedCameraId(getCurrentCameraId());
                 mBarcodeView.setCameraSettings(settings);
 
@@ -813,5 +814,44 @@ public class QRScanner extends CordovaPlugin implements BarcodeCallback {
         closeCamera();
         currentCameraId = 0;
         getStatus(callbackContext);
+    }
+}
+
+class CustomBarcodeView extends BarcodeView {
+    public CustomBarcodeView(Context context) {
+        super(context);
+    }
+
+    @Override
+    /**
+     * Calculate framing rectangle, relative to the preview frame.
+     *
+     * Note that the SurfaceView may be larger than the container.
+     *
+     * Override this for more control over the framing rect calculations.
+     *
+     * @param container this container, with left = top = 0
+     * @param surface   the SurfaceView, relative to this container
+     * @return the framing rect, relative to this container
+     */
+    protected Rect calculateFramingRect(Rect container, Rect surface) {
+        // intersection is the part of the container that is used for the preview
+        Rect intersection = new Rect(container);
+        boolean intersects = intersection.intersect(surface);
+        int margin = 0;
+        intersection.inset(margin, margin);
+        return intersection;
+    }
+
+}
+
+public class EmptyViewfinderView extends ViewfinderView {
+
+    public QRViewfinderView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    @Override
+    public void onDraw(Canvas canvas) {
     }
 }

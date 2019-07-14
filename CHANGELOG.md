@@ -1,3 +1,25 @@
+<a name="3.0.3"></a>
+## [3.0.3](https://github.com/bloodf/cordova-plugin-qrscanner-fixed-focus/compare/2.6.0...3.0.3) (2019-07-14)
+
+
+### Bug Fixes
+
+* **syntax:** Swift 5 ([692c126](https://github.com/bloodf/cordova-plugin-qrscanner-fixed-focus/commit/692c126))
+* **tag:** removes invalid tag UseSwiftLanguageVersion ([3c368fe](https://github.com/bloodf/cordova-plugin-qrscanner-fixed-focus/commit/3c368fe))
+
+
+
+<a name="3.0.2"></a>
+## [3.0.2](https://github.com/bloodf/cordova-plugin-qrscanner-fixed-focus/compare/2.6.0...3.0.2) (2019-07-13)
+
+
+### Bug Fixes
+
+* **syntax:** Swift 5 ([692c126](https://github.com/bloodf/cordova-plugin-qrscanner-fixed-focus/commit/692c126))
+* **tag:** removes invalid tag UseSwiftLanguageVersion ([3c368fe](https://github.com/bloodf/cordova-plugin-qrscanner-fixed-focus/commit/3c368fe))
+
+
+
 <a name="3.0.1"></a>
 ## [3.0.1](https://github.com/bitpay/cordova-plugin-qrscanner/compare/2.6.0...3.0.1) (2019-03-29)
 
