@@ -481,9 +481,7 @@ public class QRScanner extends CordovaPlugin implements BarcodeCallback {
                 //Configure the camera (front/back)
                 CameraSettings settings = new CameraSettings();
                 // settings.setAutoFocusEnabled(false);
-                // settings.setFocusMode(CameraSettings.FocusMode.MACRO);
                 settings.setFocusMode(CameraSettings.FocusMode.CONTINUOUS);
-                // settings.setContinuousFocusEnabled(true);
                 settings.setRequestedCameraId(getCurrentCameraId());
                 mBarcodeView.setCameraSettings(settings);
 
