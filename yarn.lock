@@ -3836,10 +3836,10 @@ sax@^1.2.4:
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
   integrity sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==
 
-sdp@^1.5.0:
-  version "1.5.4"
-  resolved "https://registry.yarnpkg.com/sdp/-/sdp-1.5.4.tgz#8e038f6ddb14bd765ae1f4b5216e12094511e0d0"
-  integrity sha1-jgOPbdsUvXZa4fS1IW4SCUUR4NA=
+sdp@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/sdp/-/sdp-3.0.2.tgz#3d3ead1b6125249f6988d977c55b084912e4d1a9"
+  integrity sha512-boRjiof+/Ca8kq0dFgHTs9HD3/a5rCAJLDCi9DTFyTq+PerwPXkffVgAyLWAL0KGp9ZpkH1o8GV+vz8UehdPBQ==
 
 semver-diff@^2.0.0:
   version "2.1.0"
@@ -4657,12 +4657,12 @@ webpack@^2.7.0:
     webpack-sources "^1.0.1"
     yargs "^6.0.0"
 
-webrtc-adapter@^3.1.4:
-  version "3.4.3"
-  resolved "https://registry.yarnpkg.com/webrtc-adapter/-/webrtc-adapter-3.4.3.tgz#b636062eee9a6ef158acd0d8501b678434b56f16"
-  integrity sha1-tjYGLu6abvFYrNDYUBtnhDS1bxY=
+webrtc-adapter@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/webrtc-adapter/-/webrtc-adapter-8.0.0.tgz#b1bd88c02ad647d064dc20f29fb311dca01c2b15"
+  integrity sha512-1U73dJB7xdXC3UmCHK3VuWU/bD1MBfYGgEPCXlBB/5QVQOzbi80UxBGvAvRt4Oocuwo5bzAD272kpkBd6f0HwA==
   dependencies:
-    sdp "^1.5.0"
+    sdp "^3.0.2"
 
 which-module@^1.0.0:
   version "1.0.0"
